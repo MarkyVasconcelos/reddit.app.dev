@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">RedditReader</string>
+    <string name="app_name">RedditReaderDev</string>
+    <string name="refresh">Atualizar</string>
 </resources>
