@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,14 +37,16 @@ public class PostDetailsActivity extends AppCompatActivity {
         findViewById(R.id.btn_from_link).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.reddit.com" + item.getPermalink())));
+                startActivity(WebUrlActivity.createOpenIntent(PostDetailsActivity.this, "https://www.reddit.com" + item.getPermalink(), item.getTitle()));
+//                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.reddit.com" + item.getPermalink())));
             }
         });
 
         findViewById(R.id.btn_from_url).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(item.getFromUrl())));
+                startActivity(WebUrlActivity.createOpenIntent(PostDetailsActivity.this, item.getFromUrl(), item.getTitle()));
+//                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(item.getFromUrl())));
             }
         });
 
@@ -59,5 +62,15 @@ public class PostDetailsActivity extends AppCompatActivity {
         Intent intent = new Intent(from, PostDetailsActivity.class);
         intent.putExtra(OBJECT_KEY, item);
         return intent;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

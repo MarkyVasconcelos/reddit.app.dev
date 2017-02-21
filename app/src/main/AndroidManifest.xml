@@ -31,7 +31,17 @@
             android:name=".WebRequestService"
             android:exported="false" />
 
-        <activity android:parentActivityName=".MainActivity" android:name=".PostDetailsActivity"></activity>
+        <activity
+            android:name=".PostDetailsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".WebUrlActivity"
+            android:label="@string/title_activity_web_url"
+            android:parentActivityName=".PostDetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.mv.redditreader.PostDetailsActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RedditReaderDev</string>
     <string name="refresh">Atualizar</string>
+    <string name="title_activity_web_url">WebUrlActivity</string>
 </resources>

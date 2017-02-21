@@ -43,7 +43,7 @@
         android:id="@+id/btn_from_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ver no site" />
+        android:text="Ver no Reddit" />
 
     <Button
         android:id="@+id/btn_from_url"
