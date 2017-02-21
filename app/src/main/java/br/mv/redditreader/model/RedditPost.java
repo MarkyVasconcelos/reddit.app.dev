@@ -1,5 +1,8 @@
 package br.mv.redditreader.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,7 +11,7 @@ import java.util.List;
 /**
  * Created by Marcos Vasconcelos on 20/02/2017.
  */
-public class RedditPost {
+public class RedditPost implements Parcelable {
     private String selfText;
     private String thumbnailUrl;
     private String title;
@@ -16,10 +19,38 @@ public class RedditPost {
     private int numComments;
     private int numUps;
     private String author;
-    private int createdAt;
+    private long createdAt;
     private List<String> imagesPreviewUrls = new ArrayList<>();
     private String fromUrl;
     private String name;
+
+    public RedditPost(){ }
+
+    protected RedditPost(Parcel in) {
+        selfText = in.readString();
+        thumbnailUrl = in.readString();
+        title = in.readString();
+        permalink = in.readString();
+        numComments = in.readInt();
+        numUps = in.readInt();
+        author = in.readString();
+        createdAt = in.readLong();
+        imagesPreviewUrls = in.createStringArrayList();
+        fromUrl = in.readString();
+        name = in.readString();
+    }
+
+    public static final Creator<RedditPost> CREATOR = new Creator<RedditPost>() {
+        @Override
+        public RedditPost createFromParcel(Parcel in) {
+            return new RedditPost(in);
+        }
+
+        @Override
+        public RedditPost[] newArray(int size) {
+            return new RedditPost[size];
+        }
+    };
 
     public void setSelfText(String selfText) {
         this.selfText = selfText;
@@ -49,7 +80,7 @@ public class RedditPost {
         this.author = author;
     }
 
-    public void setCreatedAt(int createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -94,5 +125,25 @@ public class RedditPost {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(selfText);
+        dest.writeString(thumbnailUrl);
+        dest.writeString(title);
+        dest.writeString(permalink);
+        dest.writeInt(numComments);
+        dest.writeInt(numUps);
+        dest.writeString(author);
+        dest.writeLong(createdAt);
+        dest.writeStringList(imagesPreviewUrls);
+        dest.writeString(fromUrl);
+        dest.writeString(name);
     }
 }

@@ -30,7 +30,7 @@ public class RedditJSONParser {
             resultObj.setNumComments(postData.getInt("num_comments"));
             resultObj.setNumUps(postData.getInt("ups"));
             resultObj.setAuthor(postData.getString("author"));
-            resultObj.setCreatedAt(postData.getInt("created"));
+            resultObj.setCreatedAt(postData.getLong("created") * 1000L);
             resultObj.setFromUrl(postData.getString("url"));
             resultObj.setName(postData.getString("name"));
 
