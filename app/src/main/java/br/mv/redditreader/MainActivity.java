@@ -1,6 +1,7 @@
 package br.mv.redditreader;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
@@ -13,7 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +48,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 refreshContent();
+            }
+        });
+
+        content.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListAdapter adapter = content.getAdapter();
+                if(!(adapter instanceof RedditPostAdapter)) // Click from ErrorAdapters
+                    return;
+                RedditPostAdapter children = (RedditPostAdapter) adapter;
+                RedditPost item = children.getItem(position);
+
+                Intent openItemIntent = PostDetailsActivity.createOpenIntent(MainActivity.this, item);
+                startActivity(openItemIntent);
             }
         });
 

@@ -2,6 +2,7 @@ package br.mv.redditreader.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class RedditPost implements Parcelable {
     private int numUps;
     private String author;
     private long createdAt;
-    private List<String> imagesPreviewUrls = new ArrayList<>();
+//    private List<String> imagesPreviewUrls = new ArrayList<>();
     private String fromUrl;
     private String name;
 
@@ -28,16 +29,23 @@ public class RedditPost implements Parcelable {
 
     protected RedditPost(Parcel in) {
         selfText = in.readString();
+        if(selfText.equals("null")) selfText = null;
         thumbnailUrl = in.readString();
+        if(thumbnailUrl.equals("null")) thumbnailUrl = null;
         title = in.readString();
+        if(title.equals("null")) title = null;
         permalink = in.readString();
+        if(permalink.equals("null")) permalink = null;
         numComments = in.readInt();
         numUps = in.readInt();
         author = in.readString();
+        if(author.equals("null")) author = null;
         createdAt = in.readLong();
-        imagesPreviewUrls = in.createStringArrayList();
+        //imagesPreviewUrls = in.createStringArrayList();
         fromUrl = in.readString();
+        if(fromUrl.equals("null")) fromUrl = null;
         name = in.readString();
+        if(name.equals("null")) name = null;
     }
 
     public static final Creator<RedditPost> CREATOR = new Creator<RedditPost>() {
@@ -57,7 +65,10 @@ public class RedditPost implements Parcelable {
     }
 
     public void setThumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
+        if("null".equals(thumbnailUrl))
+            this.thumbnailUrl = null;
+        else
+            this.thumbnailUrl = thumbnailUrl;
     }
 
     public void setTitle(String title) {
@@ -84,9 +95,9 @@ public class RedditPost implements Parcelable {
         this.createdAt = createdAt;
     }
 
-    public void addPreviewImage(String imageUrl) {
-        imagesPreviewUrls.add(imageUrl);
-    }
+//    public void addPreviewImage(String imageUrl) {
+//        imagesPreviewUrls.add(imageUrl);
+//    }
 
     public void setFromUrl(String fromUrl) {
         this.fromUrl = fromUrl;
@@ -112,12 +123,12 @@ public class RedditPost implements Parcelable {
 
     final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm");
 
-    public String firstPreviewImage() {
-        if(imagesPreviewUrls.size() == 0)
-            return null;
-
-        return imagesPreviewUrls.get(0);
-    }
+//    public String firstPreviewImage() {
+//        if(imagesPreviewUrls.size() == 0)
+//            return null;
+//
+//        return imagesPreviewUrls.get(0);
+//    }
 
     public void setName(String name) {
         this.name = name;
@@ -134,16 +145,28 @@ public class RedditPost implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(selfText);
-        dest.writeString(thumbnailUrl);
-        dest.writeString(title);
-        dest.writeString(permalink);
+        dest.writeString(selfText == null ? "null" : selfText);
+        dest.writeString(thumbnailUrl == null ? "null" : thumbnailUrl);
+        dest.writeString(title == null ? "null" : title);
+        dest.writeString(permalink == null ? "null" : permalink);
         dest.writeInt(numComments);
         dest.writeInt(numUps);
-        dest.writeString(author);
+        dest.writeString(author == null ? "null" : author);
         dest.writeLong(createdAt);
-        dest.writeStringList(imagesPreviewUrls);
-        dest.writeString(fromUrl);
-        dest.writeString(name);
+        //dest.writeStringList(imagesPreviewUrls);
+        dest.writeString(fromUrl == null ? "null" : fromUrl);
+        dest.writeString(name == null ? "null" : name);
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public String getSelfText() {
+        return selfText;
+    }
+
+    public String getPermalink() {
+        return permalink;
     }
 }

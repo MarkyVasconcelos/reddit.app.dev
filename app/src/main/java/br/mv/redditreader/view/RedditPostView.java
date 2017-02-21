@@ -2,10 +2,16 @@ package br.mv.redditreader.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+
+import br.mv.redditreader.PostDetailsActivity;
 import br.mv.redditreader.R;
 import br.mv.redditreader.model.RedditPost;
 
@@ -34,13 +40,11 @@ public class RedditPostView extends LinearLayout {
         info.setText(item.buildInfoString());
         fromUrl.setText(item.getFromUrl());
 
-
-        String firstPreview = item.firstPreviewImage();
-        if(firstPreview != null)
-            downloadAndDisplayImage(firstPreview);
-    }
-
-    private void downloadAndDisplayImage(String firstPreview) {
-        
+        String firstPreview = item.getThumbnailUrl();
+        if(firstPreview != null && !"self".equals(firstPreview)){
+            previewImage.setVisibility(View.VISIBLE);
+            Picasso.with(getContext()).load(firstPreview).into(previewImage);
+        }else
+            previewImage.setVisibility(View.GONE);
     }
 }

@@ -34,23 +34,22 @@ public class RedditJSONParser {
             resultObj.setFromUrl(postData.getString("url"));
             resultObj.setName(postData.getString("name"));
 
-            JSONObject preview = postData.optJSONObject("preview");
-            if(preview != null){
-                JSONArray imagePreviews = preview.getJSONArray("images");
-                for(int j = 0; j < imagePreviews.length(); j++){
-                    JSONObject source = data.getJSONObject(j).optJSONObject("source");
-                    if(source != null){
-                        String url = source.optString("url", "");
-                        if(!url.isEmpty())
-                            resultObj.addPreviewImage(url);
-                    }
-                }
-            }
+//            JSONObject preview = postData.optJSONObject("preview");
+//            if(preview != null){
+//                JSONArray imagePreviews = preview.getJSONArray("images");
+//                for(int j = 0; j < imagePreviews.length(); j++){
+//                    JSONObject source = imagePreviews.getJSONObject(j).optJSONObject("source");
+//                    if(source != null){
+//                        String url = source.optString("url", "");
+//                        if(!url.isEmpty())
+//                            resultObj.addPreviewImage(url);
+//                    }
+//                }
+//            }
 
             result.add(resultObj);
         }
 
-        Collections.reverse(result);
         return result;
     }
 }
