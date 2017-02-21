@@ -19,6 +19,7 @@ public class RedditPost {
     private int createdAt;
     private List<String> imagesPreviewUrls = new ArrayList<>();
     private String fromUrl;
+    private String name;
 
     public void setSelfText(String selfText) {
         this.selfText = selfText;
@@ -78,12 +79,20 @@ public class RedditPost {
         return result.toString();
     }
 
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm");
+    final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm");
 
     public String firstPreviewImage() {
         if(imagesPreviewUrls.size() == 0)
             return null;
 
         return imagesPreviewUrls.get(0);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

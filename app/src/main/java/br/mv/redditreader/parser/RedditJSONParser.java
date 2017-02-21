@@ -32,6 +32,7 @@ public class RedditJSONParser {
             resultObj.setAuthor(postData.getString("author"));
             resultObj.setCreatedAt(postData.getInt("created"));
             resultObj.setFromUrl(postData.getString("url"));
+            resultObj.setName(postData.getString("name"));
 
             JSONObject preview = postData.optJSONObject("preview");
             if(preview != null){
